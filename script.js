@@ -18,13 +18,13 @@ const translations = {
         hero_desc: "Doble Titulación en Magisterio (Infantil y Primaria) por la UCM y UCJC, con menciones en Pedagogía Terapéutica y Lengua Extranjera (Inglés), complementada con un Máster en Dirección de RRHH. Más de 15 años de compromiso docente, especialización en neurodiversidad, metodologías activas (Waldorf, bosque-escuelas), gestión de talento y liderazgo de programas educativos de alto impacto.",
         
         // Metrics
-        metric_1_num: "🎓 Doble Grado",
+        metric_1_num: "Doble Grado",
         metric_1_lbl: "Infantil (UCM) & Primaria (UCJC)",
-        metric_2_num: "🧠 2 Menciones",
+        metric_2_num: "2 Menciones",
         metric_2_lbl: "Pedag. Terapéutica + Inglés",
-        metric_3_num: "👥 Máster RRHH",
+        metric_3_num: "Máster RRHH",
         metric_3_lbl: "Dirección de Personas (UCJC)",
-        metric_4_num: "🌿 860+ Horas",
+        metric_4_num: "860+ Horas",
         metric_4_lbl: "Pedagogía Waldorf & Activa",
 
         // Buttons
@@ -190,13 +190,13 @@ const translations = {
         hero_desc: "Dual Degree in Education (Early Childhood & Primary) from UCM and UCJC, with official mentions in Therapeutic Pedagogy (Special Needs) and Foreign Language (English), complemented by an M.Sc. in Human Resources Management. Over 15 years of dedicated teaching, neurodiversity expertise, active methodologies (Waldorf, forest schools), talent management, and impactful educational leadership.",
         
         // Metrics
-        metric_1_num: "🎓 Dual Degree",
+        metric_1_num: "Dual Degree",
         metric_1_lbl: "Early Childhood (UCM) & Primary (UCJC)",
-        metric_2_num: "🧠 2 Mentions",
+        metric_2_num: "2 Mentions",
         metric_2_lbl: "Special Needs (PT) + English",
-        metric_3_num: "👥 M.Sc. in HR",
+        metric_3_num: "M.Sc. in HR",
         metric_3_lbl: "People Management (UCJC)",
-        metric_4_num: "🌿 860+ Hours",
+        metric_4_num: "860+ Hours",
         metric_4_lbl: "Waldorf & Active Methodologies",
 
         // Buttons
@@ -380,36 +380,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setLanguage(currentLang);
 
-    // 2. Cursor glow tracking (desktop pointer)
-    const cursorGlow = document.getElementById('cursor-glow');
-    if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
-        window.addEventListener('pointermove', (e) => {
-            cursorGlow.style.left = `${e.clientX}px`;
-            cursorGlow.style.top = `${e.clientY}px`;
-        });
-    }
-
-    // 3. Spotlight Hover Effect for Clean Cards
-    const interactiveCards = document.querySelectorAll('.interactive-card');
-    interactiveCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
-
-    // 4. Tilt Effect on Profile Image Wrapper
+    // 2. Tilt Effect on Profile Image Wrapper
     const tiltWrapper = document.querySelector('.tilt-card');
     if (tiltWrapper && window.matchMedia('(pointer: fine)').matches) {
         tiltWrapper.addEventListener('mousemove', (e) => {
             const rect = tiltWrapper.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            const tiltX = (y / (rect.height / 2)) * -6;
-            const tiltY = (x / (rect.width / 2)) * 6;
+            const tiltX = (y / (rect.height / 2)) * -5;
+            const tiltY = (x / (rect.width / 2)) * 5;
             tiltWrapper.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
 
@@ -418,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Scroll Animations via IntersectionObserver
+    // 3. Scroll Animations via IntersectionObserver
     const fadeElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     const observerOptions = {
         root: null,
@@ -437,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fadeElements.forEach(el => observer.observe(el));
 
-    // 6. Timeline dynamic progress tracker
+    // 4. Timeline dynamic progress tracker
     const timeline = document.querySelector('.timeline');
     const progress = document.querySelector('.timeline-progress');
 
