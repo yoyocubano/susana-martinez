@@ -1,4 +1,4 @@
-// Susana Martínez - Lógica Interactiva y Motor Bilingüe (Enfocado a Colegios Concertados & PT)
+// Susana Martínez - Lógica Interactiva, Motor Bilingüe y Modo Edición Secreto (5 Segundos en el Logo)
 
 const translations = {
     es: {
@@ -346,9 +346,25 @@ const translations = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Language switcher
+    // 1. Language switcher & Custom Edits restoration
     const langBtns = document.querySelectorAll('.lang-btn');
     let currentLang = localStorage.getItem('susana_preferred_lang') || 'es';
+
+    function loadCustomEdits() {
+        try {
+            const saved = localStorage.getItem('susana_custom_texts');
+            if (!saved) return;
+            const edits = JSON.parse(saved);
+            Object.keys(edits).forEach(key => {
+                const el = document.querySelector(`[data-i18n="${key}"]`) || document.querySelector(`[data-edit-id="${key}"]`);
+                if (el) {
+                    el.innerHTML = edits[key];
+                }
+            });
+        } catch (e) {
+            console.error("Error al cargar textos personalizados:", e);
+        }
+    }
 
     function setLanguage(lang) {
         currentLang = lang;
@@ -367,6 +383,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.innerHTML = trans[key];
             }
         });
+
+        // Overlay any user custom edits
+        loadCustomEdits();
     }
 
     langBtns.forEach(btn => {
@@ -376,9 +395,196 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Tag editable elements with persistent IDs
+    function setupEditableElements() {
+        const editableCandidates = document.querySelectorAll(`
+            h1, h2, h3, h4, p, .metric-num, .metric-lbl, 
+            .contact-details .value, .date-badge, .pillar-tag, 
+            .job-description li, .education-item .details, 
+            .credentials-badge .text, .live-badge span:last-child
+        `);
+
+        editableCandidates.forEach((el, index) => {
+            if (!el.getAttribute('data-i18n') && !el.getAttribute('data-edit-id')) {
+                el.setAttribute('data-edit-id', 'custom_field_' + index);
+            }
+        });
+    }
+
+    setupEditableElements();
     setLanguage(currentLang);
 
-    // 2. Tilt Effect on Profile Image Wrapper
+    // 2. Secret 5-second hold on the logo
+    const logo = document.getElementById('secretLogoTrigger') || document.querySelector('.logo');
+    const logoAvatar = document.querySelector('.logo-avatar');
+    const toast = document.getElementById('editToast');
+
+    function showToast(msg, duration = 4000) {
+        if (!toast) return;
+        toast.innerHTML = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, duration);
+    }
+
+    let holdTimer = null;
+    let isHolding = false;
+    let clickCount = 0;
+    let clickTimer = null;
+
+    function startHold(e) {
+        if (isHolding) return;
+        isHolding = true;
+        if (logoAvatar) logoAvatar.classList.add('is-pressing');
+
+        holdTimer = setTimeout(() => {
+            if (isHolding) {
+                activateEditMode();
+                if (navigator.vibrate) {
+                    try { navigator.vibrate([120, 60, 120]); } catch (err) {}
+                }
+            }
+            endHold();
+        }, 5000); // Exact 5 seconds
+    }
+
+    function endHold() {
+        if (holdTimer) {
+            clearTimeout(holdTimer);
+            holdTimer = null;
+        }
+        isHolding = false;
+        if (logoAvatar) logoAvatar.classList.remove('is-pressing');
+    }
+
+    if (logo) {
+        // Prevent default navigation if held
+        logo.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Alternative shortcut: 5 fast clicks on the logo
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+            if (clickCount >= 5) {
+                activateEditMode();
+                clickCount = 0;
+            }
+        });
+
+        // Touch events (mobile & tablet)
+        logo.addEventListener('touchstart', (e) => {
+            startHold(e);
+        }, { passive: true });
+
+        logo.addEventListener('touchend', endHold);
+        logo.addEventListener('touchcancel', endHold);
+
+        // Mouse events (desktop)
+        logo.addEventListener('mousedown', (e) => {
+            if (e.button === 0) startHold(e);
+        });
+        logo.addEventListener('mouseup', endHold);
+        logo.addEventListener('mouseleave', endHold);
+        logo.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // Avoid opening context menu while holding
+        });
+    }
+
+    // 3. Edit Mode Logic
+    let isEditModeActive = false;
+
+    function activateEditMode() {
+        if (isEditModeActive) return;
+        isEditModeActive = true;
+        document.body.classList.add('edit-mode-active');
+
+        // Turn editable elements into contenteditable
+        const editables = document.querySelectorAll('[data-i18n], [data-edit-id]');
+        editables.forEach(el => {
+            el.setAttribute('contenteditable', 'true');
+            el.setAttribute('spellcheck', 'true');
+        });
+
+        showToast('✨ <strong>¡Modo Personalización Activado!</strong><br>Toca cualquier texto para cambiarlo como tú quieras.', 5000);
+    }
+
+    function deactivateEditMode() {
+        isEditModeActive = false;
+        document.body.classList.remove('edit-mode-active');
+
+        const editables = document.querySelectorAll('[contenteditable="true"]');
+        editables.forEach(el => {
+            el.removeAttribute('contenteditable');
+        });
+
+        showToast('👁️ Has vuelto a la vista normal. Puedes reactivar la edición manteniendo pulsado el logo 5 segundos.');
+    }
+
+    function saveAllEdits() {
+        const edits = {};
+        const editables = document.querySelectorAll('[data-i18n], [data-edit-id]');
+
+        editables.forEach(el => {
+            const key = el.getAttribute('data-i18n') || el.getAttribute('data-edit-id');
+            if (key) {
+                edits[key] = el.innerHTML.trim();
+            }
+        });
+
+        localStorage.setItem('susana_custom_texts', JSON.stringify(edits));
+        showToast('💾 <strong>¡Cambios guardados con éxito!</strong> Se mantendrán cada vez que abras la web.', 4000);
+    }
+
+    function copyEditsSummary() {
+        try {
+            const edits = {};
+            const editables = document.querySelectorAll('[data-i18n], [data-edit-id]');
+            let summaryText = "--- TEXTOS PERSONALIZADOS POR SUSANA MARTÍNEZ ---\n\n";
+
+            editables.forEach(el => {
+                const key = el.getAttribute('data-i18n') || el.getAttribute('data-edit-id');
+                const text = el.innerText.trim();
+                summaryText += `[${key}]:\n${text}\n\n`;
+            });
+
+            navigator.clipboard.writeText(summaryText).then(() => {
+                showToast('📋 <strong>¡Copiado al portapapeles!</strong> Puedes pegarlo en WhatsApp o mandarlo por correo.');
+            }).catch(() => {
+                showToast('⚠️ Selecciona y copia el texto manualmente.');
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function resetAllEdits() {
+        if (confirm('¿Quieres borrar tus cambios y volver a los textos originales?')) {
+            localStorage.removeItem('susana_custom_texts');
+            location.reload();
+        }
+    }
+
+    // Attach Toolbar Event Listeners
+    const btnSave = document.getElementById('btnSaveEdits');
+    const btnCopy = document.getElementById('btnCopyEdits');
+    const btnReset = document.getElementById('btnResetEdits');
+    const btnClose = document.getElementById('btnCloseEdit');
+
+    if (btnSave) btnSave.addEventListener('click', saveAllEdits);
+    if (btnCopy) btnCopy.addEventListener('click', copyEditsSummary);
+    if (btnReset) btnReset.addEventListener('click', resetAllEdits);
+    if (btnClose) btnClose.addEventListener('click', deactivateEditMode);
+
+    // Keyboard shortcut to toggle edit mode: Alt + E
+    window.addEventListener('keydown', (e) => {
+        if (e.altKey && (e.key === 'e' || e.key === 'E')) {
+            if (isEditModeActive) deactivateEditMode();
+            else activateEditMode();
+        }
+    });
+
+    // 4. Tilt Effect on Profile Image Wrapper
     const tiltWrapper = document.querySelector('.tilt-card');
     if (tiltWrapper && window.matchMedia('(pointer: fine)').matches) {
         tiltWrapper.addEventListener('mousemove', (e) => {
@@ -395,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Scroll Animations via IntersectionObserver
+    // 5. Scroll Animations via IntersectionObserver
     const fadeElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     const observerOptions = {
         root: null,
@@ -414,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fadeElements.forEach(el => observer.observe(el));
 
-    // 4. Timeline dynamic progress tracker
+    // 6. Timeline dynamic progress tracker
     const timeline = document.querySelector('.timeline');
     const progress = document.querySelector('.timeline-progress');
 

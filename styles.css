@@ -957,3 +957,193 @@ footer {
         align-self: flex-start;
     }
 }
+
+/* =======================================================
+   TRUCO SECRETO: 5 SEGUNDOS EN EL LOGO & MODO EDICIÓN
+   ======================================================= */
+
+.logo {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+}
+
+.logo-avatar {
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logo-avatar.is-pressing {
+    transform: scale(0.94);
+    box-shadow: 0 0 0 4px #b87382, 0 0 20px rgba(184, 115, 130, 0.6);
+}
+
+.hold-progress-ring {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 54px;
+    height: 54px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.logo-avatar.is-pressing .hold-progress-ring {
+    opacity: 1;
+}
+
+.hold-progress-ring circle {
+    fill: none;
+    stroke: #853b4b;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-dasharray: 157;
+    stroke-dashoffset: 157;
+}
+
+.logo-avatar.is-pressing .hold-progress-ring circle {
+    animation: fillRing 5s linear forwards;
+}
+
+@keyframes fillRing {
+    from { stroke-dashoffset: 157; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* Edit Mode Banner & Controls */
+body.edit-mode-active {
+    padding-top: 55px;
+}
+
+.edit-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #853b4b;
+    color: #ffffff;
+    padding: 0.65rem 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+body.edit-mode-active .edit-toolbar {
+    display: flex;
+}
+
+.edit-toolbar-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edit-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.edit-btn {
+    background: #ffffff;
+    color: #853b4b;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: var(--transition-fast);
+}
+
+.edit-btn:hover {
+    background: #faedf0;
+    transform: translateY(-1px);
+}
+
+.edit-btn-save {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.edit-btn-save:hover {
+    background: #059669;
+}
+
+.edit-btn-close {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.edit-btn-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* Visual highlights during edit mode */
+body.edit-mode-active [contenteditable="true"] {
+    outline: 2px dashed rgba(184, 115, 130, 0.6);
+    outline-offset: 3px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: background-color 0.2s, outline-color 0.2s;
+    cursor: text;
+}
+
+body.edit-mode-active [contenteditable="true"]:hover {
+    outline-color: #853b4b;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+body.edit-mode-active [contenteditable="true"]:focus {
+    outline: 2px solid #853b4b;
+    background-color: #ffffff;
+    box-shadow: 0 0 12px rgba(184, 115, 130, 0.3);
+}
+
+/* Floating Toast Notification */
+.edit-toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1f2937;
+    color: #ffffff;
+    padding: 0.85rem 1.4rem;
+    border-radius: var(--radius-full);
+    font-size: 0.92rem;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s;
+    pointer-events: none;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.edit-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
