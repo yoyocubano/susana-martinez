@@ -18,13 +18,13 @@ const translations = {
         hero_desc: "Doble Titulación en Magisterio (Infantil y Primaria) por la UCM y UCJC, con menciones en Pedagogía Terapéutica y Lengua Extranjera (Inglés), complementada con un Máster en Dirección de RRHH. Más de 15 años de compromiso docente, especialización en neurodiversidad, metodologías activas (Waldorf, bosque-escuelas), gestión de talento y liderazgo de programas educativos de alto impacto.",
         
         // Metrics
-        metric_1_num: "Doble Grado",
+        metric_1_num: "🎓 Doble Grado",
         metric_1_lbl: "Infantil (UCM) & Primaria (UCJC)",
-        metric_2_num: "2 Menciones",
+        metric_2_num: "🧠 2 Menciones",
         metric_2_lbl: "Pedag. Terapéutica + Inglés",
-        metric_3_num: "Máster RRHH",
+        metric_3_num: "👥 Máster RRHH",
         metric_3_lbl: "Dirección de Personas (UCJC)",
-        metric_4_num: "860+ Horas",
+        metric_4_num: "🌿 860+ Horas",
         metric_4_lbl: "Pedagogía Waldorf & Activa",
 
         // Buttons
@@ -190,13 +190,13 @@ const translations = {
         hero_desc: "Dual Degree in Education (Early Childhood & Primary) from UCM and UCJC, with official mentions in Therapeutic Pedagogy (Special Needs) and Foreign Language (English), complemented by an M.Sc. in Human Resources Management. Over 15 years of dedicated teaching, neurodiversity expertise, active methodologies (Waldorf, forest schools), talent management, and impactful educational leadership.",
         
         // Metrics
-        metric_1_num: "Dual Degree",
+        metric_1_num: "🎓 Dual Degree",
         metric_1_lbl: "Early Childhood (UCM) & Primary (UCJC)",
-        metric_2_num: "2 Mentions",
+        metric_2_num: "🧠 2 Mentions",
         metric_2_lbl: "Special Needs (PT) + English",
-        metric_3_num: "M.Sc. in HR",
+        metric_3_num: "👥 M.Sc. in HR",
         metric_3_lbl: "People Management (UCJC)",
-        metric_4_num: "860+ Hours",
+        metric_4_num: "🌿 860+ Hours",
         metric_4_lbl: "Waldorf & Active Methodologies",
 
         // Buttons
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. 21st.dev Spotlight Hover Effect for Glass Cards
+    // 3. Spotlight Hover Effect for Clean Cards
     const interactiveCards = document.querySelectorAll('.interactive-card');
     interactiveCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -422,8 +422,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fadeElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.12
+        rootMargin: '0px 0px -30px 0px',
+        threshold: 0.1
     };
 
     const observer = new IntersectionObserver((entries, obs) => {
