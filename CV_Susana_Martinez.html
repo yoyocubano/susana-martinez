@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>CV Susana Martínez - Pedagogía Terapéutica, Innovación Educativa & RRHH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background: #e2e8f0;
+            color: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 0;
+            line-height: 1.4;
+        }
+
+        .cv-page {
+            width: 210mm;
+            height: 297mm;
+            max-height: 297mm;
+            background: #ffffff;
+            padding: 26px 30px 22px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* HEADER */
+        .cv-header {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .avatar-wrap {
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.18);
+            border: 3px solid #1e3a8a;
+        }
+
+        .avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+        }
+
+        .header-info {
+            flex-grow: 1;
+        }
+
+        .header-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.15;
+            margin-bottom: 3px;
+        }
+
+        .header-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #1d4ed8;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .header-summary {
+            font-size: 10.8px;
+            line-height: 1.45;
+            color: #475569;
+            background: #f8fafc;
+            border-left: 3px solid #2563eb;
+            padding: 6px 10px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .header-contacts {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 10.5px;
+            color: #334155;
+        }
+
+        .header-contacts span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-contacts i {
+            color: #2563eb;
+        }
+
+        /* 2 COLUMNS LAYOUT */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 245px 1fr;
+            gap: 22px;
+            flex-grow: 1;
+        }
+
+        /* LEFT SIDEBAR */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            border-right: 1px solid #f1f5f9;
+            padding-right: 14px;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1.5px solid #2563eb;
+            padding-bottom: 3px;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-tag i {
+            color: #2563eb;
+            font-size: 11px;
+        }
+
+        /* Academic items */
+        .edu-item {
+            margin-bottom: 7px;
+            font-size: 10.5px;
+            line-height: 1.35;
+        }
+
+        .edu-item strong {
+            display: block;
+            color: #0f172a;
+            font-size: 10.8px;
+        }
+
+        .edu-item span {
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 10px;
+        }
+
+        .edu-item em {
+            color: #64748b;
+            font-style: normal;
+            display: block;
+            font-size: 9.8px;
+        }
+
+        /* Courses mini list */
+        .badges-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 9.8px;
+            color: #334155;
+            line-height: 1.3;
+        }
+
+        .badges-flow li {
+            list-style: none;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .badges-flow li::before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-size: 9px;
+        }
+
+        /* Key pill tags */
+        .pills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .pill {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #dbeafe;
+            padding: 2.5px 6.5px;
+            border-radius: 4px;
+            font-size: 9.4px;
+            font-weight: 600;
+        }
+
+        /* RIGHT MAIN CONTENT */
+        .main-col {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .job-item {
+            margin-bottom: 8px;
+            font-size: 10.5px;
+            line-height: 1.4;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .job-title {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .job-date {
+            font-size: 9.8px;
+            font-weight: 700;
+            color: #2563eb;
+            white-space: nowrap;
+            background: #eff6ff;
+            padding: 1.5px 5.5px;
+            border-radius: 4px;
+        }
+
+        .job-entity {
+            font-size: 10.2px;
+            font-weight: 600;
+            color: #0284c7;
+            margin-bottom: 2px;
+        }
+
+        .job-desc {
+            color: #475569;
+            font-size: 10.1px;
+            text-align: justify;
+        }
+
+        /* SCREEN RESPONSIVENESS */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0;
+                background: #ffffff;
+            }
+            .cv-page {
+                width: 100%;
+                height: auto;
+                max-height: none;
+                box-shadow: none;
+                padding: 20px 16px;
+            }
+            .cv-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+            }
+            .header-contacts {
+                justify-content: center;
+            }
+            .header-summary {
+                text-align: left;
+            }
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+                padding-right: 0;
+                padding-bottom: 16px;
+            }
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .cv-page {
+                box-shadow: none;
+                width: 210mm;
+                height: 297mm;
+                max-height: 297mm;
+                padding: 26px 30px 22px;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            .cv-header {
+                flex-direction: row !important;
+                text-align: left !important;
+            }
+            .cv-grid {
+                display: grid !important;
+                grid-template-columns: 245px 1fr !important;
+                gap: 22px !important;
+            }
+            .sidebar {
+                border-right: 1px solid #f1f5f9 !important;
+                border-bottom: none !important;
+                padding-bottom: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-page">
+        <!-- HEADER -->
+        <header class="cv-header">
+            <div class="avatar-wrap">
+                <img src="./portrait.jpg" alt="Susana Martínez">
+            </div>
+            <div class="header-info">
+                <h1 class="header-name">Susana Martínez</h1>
+                <div class="header-title">Pedagogía Terapéutica · Innovación Educativa · Dirección de RRHH</div>
+                <div class="header-summary">
+                    Maestra especializada en Pedagogía Terapéutica (PT) y Lengua Inglesa, con Máster en Dirección de RRHH y Doble Titulación en Magisterio (Infantil y Primaria). Amplia trayectoria en atención a la diversidad, programas de refuerzo PROA+, educación compensatoria, metodologías activas (Waldorf, bosque-escuelas) y liderazgo organizativo.
+                </div>
+                <div class="header-contacts">
+                    <span><i class="fa-solid fa-phone"></i> +34 690 72 93 42</span>
+                    <span><i class="fa-solid fa-envelope"></i> susana.martinezcabello@hotmail.com</span>
+                    <span><i class="fa-solid fa-location-dot"></i> Madrid / Toledo, España</span>
+                    <span><i class="fa-solid fa-language"></i> Español (Nativo) · Inglés (B2 First)</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2 COLUMNS BODY -->
+        <div class="cv-grid">
+            <!-- LEFT SIDEBAR -->
+            <aside class="sidebar">
+                <!-- Formación Académica -->
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-graduation-cap"></i> Formación Académica</div>
+                    <div class="edu-item">
+                        <strong>Mención en Pedagogía Terapéutica</strong>
+                        <span>2026 · Univ. Camilo José Cela (UCJC)</span>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Máster en Dirección de RRHH</strong>
+                        <span>2023 - 2025 · Univ. Camilo José Cela</span>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Mención Lengua Extranjera: Inglés</strong>
+                        <span>2012 - 2013 · Univ. Camilo José Cela</span>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Grado en Magisterio de Primaria</strong>
+                        <span>2011 - 2012 · Univ. Camilo José Cela</span>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Diplomatura en Magisterio Infantil</strong>
+                        <span>2006 - 2009 · Univ. Complutense Madrid</span>
+                    </div>
+                </div>
+
+                <!-- Proyección Internacional -->
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-earth-americas"></i> Exp. Internacional</div>
+                    <div class="edu-item">
+                        <strong>Teaching Assistant Bosque-Escuela</strong>
+                        <em>Erasmus+ (Eslovaquia) · Pedag. Waldorf</em>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Taller "Words in Motion" (Alfabetización)</strong>
+                        <em>Programa Grundtvig · Berlín (Alemania)</em>
+                    </div>
+                </div>
+
+                <!-- Especialización & Congresos -->
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-award"></i> Especialización (Extracto)</div>
+                    <ul class="badges-flow">
+                        <li><strong>Pedagogía Waldorf en Primaria</strong> (863h)</li>
+                        <li><strong>Psicotraumatología I</strong> (Dr. Bernd Ruf)</li>
+                        <li><strong>Enseñanza Bilingüe en Inglés</strong> (130h)</li>
+                        <li><strong>Resolución de Conflictos</strong> (2025)</li>
+                        <li><strong>Inteligencia Emocional & Diversidad</strong> (220h)</li>
+                        <li><strong>Logopedia, Musicoterapia & Psicomotricidad</strong> (UNED, 180h)</li>
+                    </ul>
+                </div>
+
+                <!-- Certificaciones & Herramientas -->
+                <div>
+                    <div class="section-tag"><i class="fa-solid fa-certificate"></i> Certificaciones & TI</div>
+                    <div class="pills-container">
+                        <span class="pill">Inglés B2 Cambridge</span>
+                        <span class="pill">D.E.C.A. (Infantil/Prim.)</span>
+                        <span class="pill">Excel Avanzado (56h)</span>
+                        <span class="pill">Pizarra Digital</span>
+                        <span class="pill">Herramientas Web Docentes</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT MAIN COLUMN -->
+            <main class="main-col">
+                <div class="section-tag"><i class="fa-solid fa-briefcase"></i> Experiencia Profesional</div>
+
+                <!-- PROA+ -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Maestra de Refuerzo Educativo (Programa PROA+)</span>
+                        <span class="job-date">Ene. 2026 - Jun. 2026</span>
+                    </div>
+                    <div class="job-entity">Fundación Juanjo Torrejón · IES Domenico Scarlatti (Aranjuez)</div>
+                    <div class="job-desc">
+                        Acompañamiento pedagógico personalizado a alumnado vulnerable, aplicando estrategias de refuerzo motivacional, superación de barreras de aprendizaje y cohesión escolar.
+                    </div>
+                </div>
+
+                <!-- Refuerzo y Adultos -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Maestra de Refuerzo & Educación de Adultos</span>
+                        <span class="job-date">Sep. 2025 - Dic. 2025</span>
+                    </div>
+                    <div class="job-entity">Ayuntamiento de Ontígola</div>
+                    <div class="job-desc">
+                        Docencia en alfabetización funcional, competencias básicas y apoyo curricular a grupos heterogéneos de adultos y estudiantes en riesgo de exclusión socioeducativa.
+                    </div>
+                </div>
+
+                <!-- Gestión RRHH -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Gestión Administrativa y de Recursos Humanos</span>
+                        <span class="job-date">Nov. 2018 - Jul. 2025</span>
+                    </div>
+                    <div class="job-entity">M.A.I Soluciones Técnicas Capilares S.L. (Sector Servicios Sanitarios)</div>
+                    <div class="job-desc">
+                        Liderazgo en administración de personal, externalización de servicios, selección y coordinación de equipos interdisciplinares con foco en bienestar organizacional.
+                    </div>
+                </div>
+
+                <!-- Waldorf -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Monitora Infantil (Pedagogía Waldorf 3-5 años)</span>
+                        <span class="job-date">Sep. 2018 - Oct. 2018</span>
+                    </div>
+                    <div class="job-entity">Asociación Educación Alternativa en Toledo</div>
+                    <div class="job-desc">
+                        Dirección pedagógica del aula infantil basada en el respeto al ritmo madurativo, juego libre, expresión artística y vínculo con el entorno natural.
+                    </div>
+                </div>
+
+                <!-- Egastiz -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Coordinación de Personal Docente y Gestión</span>
+                        <span class="job-date">Nov. 2016 - Jun. 2017</span>
+                    </div>
+                    <div class="job-entity">Centro de Idiomas Egastiz S.L.</div>
+                    <div class="job-desc">
+                        Gestión académica y administrativa del claustro de profesores, atención a familias y soporte en metodologías bilingües.
+                    </div>
+                </div>
+
+                <!-- Compensatoria San Pascual -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Maestra de Primaria (Aula de Compensatoria)</span>
+                        <span class="job-date">Sep. 2012 - Jun. 2013</span>
+                    </div>
+                    <div class="job-entity">Colegio San Pascual (Aranjuez)</div>
+                    <div class="job-desc">
+                        Atención directa a alumnado con importante desfase curricular y minorías étnicas, diseñando adaptaciones curriculares individuales y fomentando la integración plena.
+                    </div>
+                </div>
+
+                <!-- Sagrada Familia -->
+                <div class="job-item">
+                    <div class="job-header">
+                        <span class="job-title">Maestra de Educación Infantil</span>
+                        <span class="job-date">Feb. 2011</span>
+                    </div>
+                    <div class="job-entity">Colegio Sagrada Familia (Aranjuez)</div>
+                    <div class="job-desc">
+                        Docencia en primer ciclo de infantil, estimulación temprana y desarrollo socioafectivo.
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
